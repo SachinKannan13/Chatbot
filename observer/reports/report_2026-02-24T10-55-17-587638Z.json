@@ -1,0 +1,249 @@
+{
+  "timestamp": "2026-02-24T10:55:17.587044+00:00",
+  "user_query": "Table summary: Employee wellbeing survey responses with health scores across multiple dimensions (mental, cultural, financial) segmented by organizational attributes.\nAvailable columns: Email ID, Employee Code, Employee Name, Response ID, Gender, DOB, Generation, DOJ, Tenure, Tenure Bucket, Department, Designation, Business Unit, Location, Question, User Response, Score, Statement, Health Lever, Category, User Response Value, Score_dup, Theme, Grade, State, IsActive, HOD Name, Reporting Manager, Sub-Department, IsActive1, Gen_New, Year of Born, Age, Tenurity Years(y), Year of Joining, New HOD, New Manager\n\nQuestion: What is the score of the Pradeep G H in Cultural Health lever",
+  "supabase": {
+    "raw_response": [
+      {
+        "id": 20,
+        "created_at": "2026-02-24T10:54:27.160953+00:00",
+        "Questions": "What are the top 7 grades in Cultural health lever?",
+        "Answers": "The top 7 grades in Cultural health lever at Qube are:\n\n1. **L3** - 100.0\n2. **SM1** - 97.2\n3. **MM1** - 85.1\n4. **TL3** - 83.8\n5. **TL2** - 81.6\n6. **IC2** - 79.3\n7. **SS** - 77.9\n\nL3 achieves a perfect score, while SM1 follows closely at 97.2. There's a notable 12-point gap between SM1 and MM1, with the remaining grades clustered more tightly between 78 and 84."
+      }
+    ],
+    "response_type": "APIResponse[TypeVar]",
+    "row_count": 1
+  },
+  "llm": {
+    "input": "SYSTEM:\nYou are a question classifier for an employee survey analytics chatbot.\n\nClassify the user's question into exactly one of these types:\n- simple: Basic factual question about data\n- aggregation: Average, sum, count, group by\n- calculation: Computed metric, score calculation\n- count: How many, number of\n- list: List all values of a column\n- ranking: Best, worst, top N, bottom N\n- comparison: Compare A vs B, differences, gaps\n- single_intent: One clear analytical goal, deep analysis of one topic\n- multi_intent: Multiple analytical goals in one question\n- trend: Over time, monthly, yearly\n- distribution: Spread, histogram, buckets\n- analytics: Deep analytical patterns and findings\n- insights: Key findings, drivers, patterns\n- recommendations: Action items, suggestions\n\nReturn ONLY valid JSON — no markdown, no explanation:\n{\n  \"question_type\": \"<type>\",\n  \"intent\": \"<one-sentence description of the analytical goal>\",\n  \"requires_web_search\": true/false,\n  \"aggregation\": \"<AVG|SUM|COUNT|MIN|MAX|null>\",\n  \"dimensions\": [\"<column names likely needed>\"],\n  \"metric\": \"<primary metric column or null>\",\n  \"filters\": [],\n  \"complexity\": \"<simple|medium|complex>\"\n}\n\nMESSAGES:\n[{'role': 'user', 'content': 'Table summary: Employee wellbeing survey responses with health scores across multiple dimensions (mental, cultural, financial) segmented by organizational attributes.\\nAvailable columns: Email ID, Employee Code, Employee Name, Response ID, Gender, DOB, Generation, DOJ, Tenure, Tenure Bucket, Department, Designation, Business Unit, Location, Question, User Response, Score, Statement, Health Lever, Category, User Response Value, Score_dup, Theme, Grade, State, IsActive, HOD Name, Reporting Manager, Sub-Department, IsActive1, Gen_New, Year of Born, Age, Tenurity Years(y), Year of Joining, New HOD, New Manager\\n\\nQuestion: What is the score of the Pradeep G H in Cultural Health lever'}]",
+    "output": "```json\n{\n  \"question_type\": \"simple\",\n  \"intent\": \"Retrieve the Cultural Health lever score for employee Pradeep G H\",\n  \"requires_web_search\": false,\n  \"aggregation\": null,\n  \"dimensions\": [\"Employee Name\", \"Health Lever\", \"Score\"],\n  \"metric\": \"Score\",\n  \"filters\": [\n    {\"column\": \"Employee Name\", \"operator\": \"equals\", \"value\": \"Pradeep G H\"},\n    {\"column\": \"Health Lever\", \"operator\": \"equals\", \"value\": \"Cultural Health\"}\n  ],\n  \"complexity\": \"simple\"\n}\n```",
+    "model": "claude-sonnet-4-5-20250929"
+  },
+  "cognitive_trace": {
+    "structural_analysis": {
+      "response_type": "APIResponse[TypeVar]",
+      "row_count": 1,
+      "columns": [
+        "id",
+        "created_at",
+        "Questions",
+        "Answers"
+      ],
+      "numeric_fields": [
+        "id"
+      ],
+      "categorical_fields": [
+        "created_at",
+        "Questions",
+        "Answers"
+      ]
+    },
+    "semantic_analysis": {
+      "metric_type": "numeric",
+      "domain": "employee engagement",
+      "aggregation_level": "department"
+    },
+    "prompt_analysis": {
+      "system_prompt": "You are a question classifier for an employee survey analytics chatbot.\n\nClassify the user's question into exactly one of these types:\n- simple: Basic factual question about data\n- aggregation: Average, sum, count, group by\n- calculation: Computed metric, score calculation\n- count: How many, number of\n- list: List all values of a column\n- ranking: Best, worst, top N, bottom N\n- comparison: Compare A vs B, differences, gaps\n- single_intent: One clear analytical goal, deep analysis of one topic\n- multi_intent: Multiple analytical goals in one question\n- trend: Over time, monthly, yearly\n- distribution: Spread, histogram, buckets\n- analytics: Deep analytical patterns and findings\n- insights: Key findings, drivers, patterns\n- recommendations: Action items, suggestions\n\nReturn ONLY valid JSON — no markdown, no explanation:\n{\n  \"question_type\": \"<type>\",\n  \"intent\": \"<one-sentence description of the analytical goal>\",\n  \"requires_web_search\": true/false,\n  \"aggregation\": \"<AVG|SUM|COUNT|MIN|MAX|null>\",\n  \"dimensions\": [\"<column names likely needed>\"],\n  \"metric\": \"<primary metric column or null>\",\n  \"filters\": [],\n  \"complexity\": \"<simple|medium|complex>\"\n}",
+      "user_prompt": "Table summary: Employee wellbeing survey responses with health scores across multiple dimensions (mental, cultural, financial) segmented by organizational attributes.\nAvailable columns: Email ID, Employee Code, Employee Name, Response ID, Gender, DOB, Generation, DOJ, Tenure, Tenure Bucket, Department, Designation, Business Unit, Location, Question, User Response, Score, Statement, Health Lever, Category, User Response Value, Score_dup, Theme, Grade, State, IsActive, HOD Name, Reporting Manager, Sub-Department, IsActive1, Gen_New, Year of Born, Age, Tenurity Years(y), Year of Joining, New HOD, New Manager\n\nQuestion: What is the score of the Pradeep G H in Cultural Health lever",
+      "data_injected": {
+        "raw_response": [
+          {
+            "id": 20,
+            "created_at": "2026-02-24T10:54:27.160953+00:00",
+            "Questions": "What are the top 7 grades in Cultural health lever?",
+            "Answers": "The top 7 grades in Cultural health lever at Qube are:\n\n1. **L3** - 100.0\n2. **SM1** - 97.2\n3. **MM1** - 85.1\n4. **TL3** - 83.8\n5. **TL2** - 81.6\n6. **IC2** - 79.3\n7. **SS** - 77.9\n\nL3 achieves a perfect score, while SM1 follows closely at 97.2. There's a notable 12-point gap between SM1 and MM1, with the remaining grades clustered more tightly between 78 and 84."
+          }
+        ],
+        "response_type": "APIResponse[TypeVar]",
+        "row_count": 1
+      },
+      "final_prompt": "SYSTEM:\nYou are a question classifier for an employee survey analytics chatbot.\n\nClassify the user's question into exactly one of these types:\n- simple: Basic factual question about data\n- aggregation: Average, sum, count, group by\n- calculation: Computed metric, score calculation\n- count: How many, number of\n- list: List all values of a column\n- ranking: Best, worst, top N, bottom N\n- comparison: Compare A vs B, differences, gaps\n- single_intent: One clear analytical goal, deep analysis of one topic\n- multi_intent: Multiple analytical goals in one question\n- trend: Over time, monthly, yearly\n- distribution: Spread, histogram, buckets\n- analytics: Deep analytical patterns and findings\n- insights: Key findings, drivers, patterns\n- recommendations: Action items, suggestions\n\nReturn ONLY valid JSON — no markdown, no explanation:\n{\n  \"question_type\": \"<type>\",\n  \"intent\": \"<one-sentence description of the analytical goal>\",\n  \"requires_web_search\": true/false,\n  \"aggregation\": \"<AVG|SUM|COUNT|MIN|MAX|null>\",\n  \"dimensions\": [\"<column names likely needed>\"],\n  \"metric\": \"<primary metric column or null>\",\n  \"filters\": [],\n  \"complexity\": \"<simple|medium|complex>\"\n}\n\nMESSAGES:\n[{'role': 'user', 'content': 'Table summary: Employee wellbeing survey responses with health scores across multiple dimensions (mental, cultural, financial) segmented by organizational attributes.\\nAvailable columns: Email ID, Employee Code, Employee Name, Response ID, Gender, DOB, Generation, DOJ, Tenure, Tenure Bucket, Department, Designation, Business Unit, Location, Question, User Response, Score, Statement, Health Lever, Category, User Response Value, Score_dup, Theme, Grade, State, IsActive, HOD Name, Reporting Manager, Sub-Department, IsActive1, Gen_New, Year of Born, Age, Tenurity Years(y), Year of Joining, New HOD, New Manager\\n\\nQuestion: What is the score of the Pradeep G H in Cultural Health lever'}]"
+    },
+    "transformation_detection": {
+      "operations_detected": [
+        "ranking",
+        "sorting"
+      ]
+    },
+    "metric_reconstruction": {
+      "mean_id": 20.0,
+      "max_id": 20.0,
+      "min_id": 20.0,
+      "variance_id": 0.0,
+      "ranking": [
+        {
+          "created_at": "2026-02-24T10:54:27.160953+00:00",
+          "id": 20.0
+        }
+      ],
+      "ranking_basis": {
+        "category_field": "created_at",
+        "metric_field": "id"
+      }
+    },
+    "justification_mapping": {
+      "mappings": []
+    },
+    "reasoning_trace": {
+      "steps": [
+        "LLM detected numeric fields in Supabase response.",
+        "LLM detected categorical grouping fields.",
+        "LLM interpreted primary metric type as numeric.",
+        "LLM inferred aggregation level around department.",
+        "LLM likely applied ranking.",
+        "LLM likely applied sorting.",
+        "Independent metric reconstruction produced ranked results for validation."
+      ]
+    },
+    "derivation_trace": {
+      "mathematical_operations": [
+        "mean",
+        "sum",
+        "difference",
+        "ratio calculation",
+        "ranking formula",
+        "min/max detection"
+      ],
+      "formulas_detected": [
+        {
+          "formula_name": "mean",
+          "formula_expression": "mean = sum(values) / count(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "sum",
+          "formula_expression": "sum(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "max",
+          "formula_expression": "max(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "min",
+          "formula_expression": "min(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "ranking",
+          "formula_expression": "sorted(values, descending=True)",
+          "result": "ranked_output",
+          "input_values": [
+            20.0
+          ],
+          "ranked_output": [
+            {
+              "created_at": "2026-02-24T10:54:27.160953+00:00",
+              "id": 20.0
+            }
+          ]
+        }
+      ],
+      "formula_reconstructions": [
+        {
+          "formula_name": "mean",
+          "formula_expression": "mean = sum(values) / count(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "sum",
+          "formula_expression": "sum(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "max",
+          "formula_expression": "max(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "min",
+          "formula_expression": "min(values)",
+          "result": 20.0,
+          "values_used": [
+            20.0
+          ]
+        },
+        {
+          "formula_name": "ranking",
+          "formula_expression": "sorted(values, descending=True)",
+          "result": "ranked_output",
+          "input_values": [
+            20.0
+          ],
+          "ranked_output": [
+            {
+              "created_at": "2026-02-24T10:54:27.160953+00:00",
+              "id": 20.0
+            }
+          ]
+        }
+      ],
+      "logical_derivations": [
+        {
+          "logic_type": "max_detection",
+          "formula_expression": "max(values)",
+          "result": 20.0
+        },
+        {
+          "logic_type": "min_detection",
+          "formula_expression": "min(values)",
+          "result": 20.0
+        },
+        {
+          "logic_type": "threshold_comparison",
+          "formula_expression": "value comparator threshold",
+          "result": "detected"
+        }
+      ],
+      "inference_rules": [],
+      "derivation_confidence": [
+        {
+          "formula": "mean",
+          "confidence": 0.98
+        },
+        {
+          "formula": "sum",
+          "confidence": 0.55
+        },
+        {
+          "formula": "difference",
+          "confidence": 0.55
+        },
+        {
+          "formula": "ratio calculation",
+          "confidence": 0.55
+        },
+        {
+          "formula": "ranking formula",
+          "confidence": 0.97
+        },
+        {
+          "formula": "min/max detection",
+          "confidence": 0.9
+        }
+      ]
+    }
+  }
+}

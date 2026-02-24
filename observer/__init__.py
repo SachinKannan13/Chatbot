@@ -1,0 +1,2 @@
+"""Passive observer package."""
+
